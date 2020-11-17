@@ -1,0 +1,13 @@
+Aufgabe 3.2: Nennen Sie bitte zwei Schlüsselworte von Java, die Sie in den letzten
+Übungsblättern verwendet haben, die typisch für objektorientierte Sprachen sind
+final, static
+
+Aufgabe 3.3: Wieso muss ein Java-Programm nur ein mal kompiliert werden und kann
+dann auf verschiedenen Plattformen (Unix, Windows, ...) eingesetzt werden?
+Beim Compilieren übersetzt der Compiler den Java Code in Bytecode. Dieser Bytecode wird dann von der
+virtuellen Maschine des jeweiligen Betriebssystems interpretiert. Für jedes Betriebssystem wird der Code anders
+interpretiert, je nach Funktionen des Betriebssystems.
+
+Aufgabe 3.4: Recherchieren Sie bitte, was unter Android an Java anders ist.
+Android basiert zwar auf Java, aber anders als bei Java wird der Programmcode nicht in Bytecode, sondern in
+Davilk opcode umgewandelt. 
