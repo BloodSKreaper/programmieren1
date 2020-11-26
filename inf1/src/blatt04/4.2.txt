@@ -1,0 +1,5 @@
+1. anstatt Semikolon wurden Kommas verwendet
+2. Teilen durch 0
+3. While wurde vergessen
+4. in Java gibts kein unsigned int
+5. Endlosschleife
