@@ -1,0 +1,26 @@
+Beantworten/klären Sie folgende Fragen:
+1. Was sind erlaubte Werte im Spielfeld?
+2. Welche Bedeutung hat die "0" dabei?
+3. Warum ist die Reihung testSpielFelder dreidimensional? 4. Was steht in der 1., 2. und 3. Dimension?
+
+	 testSpielFelder ist dreidimensional: 
+	 * 1. Dimension speichert die SpielFelder
+	 * 2. Dimension speichert die Zeilen eines Spielfeldes
+	 * 3. Dimension speichert das Element in einer Spalte in der Zeile aus Dim 2
+	 
+	 Beispiel testSpielFelder[0][0][0]: 1. Spielfeld, 1. Reihe, 1. Spalte. Hier ist das die 5.
+
+5. Welche Dimension hat die Reihung testFeld in der Methode
+testSudokuChecker? 
+	2 Dimensional
+	
+6. In der Methode testSudokuChecker wird this.spielFeld[8][8] auf 8 geändert. Ändert sich dadurch testSpielFelder auch? 
+Wieso (nicht)?
+	Der Wert von testSpielFelder ändert sich nicht, da die Werte in eine neue Variable kopiert wurden.
+	Beim Ändern einer solchen Kopie ändert sich die "Quell"variable nicht.
+
+7. Wie/wieso funktioniert die For-Each-Schleife in der Methode testSudokuChecker? 
+Was wird hier durchlaufen?
+	Hier wird über die dritte Dimension iteriert, welche die Sudoku-Spielfelder enthält. (Siehe Aufgabe 3 und 4)
+	Dadurch erhält man einen zweidimensionalen Array, der wie beschrieben zunächst die Reihen und dann die Spalten
+	enthält.

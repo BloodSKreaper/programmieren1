@@ -1,38 +1,37 @@
 package blatt06;
 
 /**
- * Pruefen eines 9x9 Sudokus 
+ * Pruefen eines 9x9 Sudokus
  * 
  * @author Ulrich.Broeckl@hs-karlsruhe.de,<br>
- * 		   sclu1042@hs-karlsruhe.de
+ *         sclu1042@hs-karlsruhe.de
  */
-public class SudokuChecker{
+public class SudokuChecker {
 	/**
 	 * Wie gross ist ein Block (i.d.R. 3) im Sudoku.<br>
 	 * <br>
-	 * <b>WARNUNG:</b> Es reicht nicht aus, einfach diese Zahl 
-	 * zum Beispiel fuer 16x16 Sudokus hochzusetzen. Da
-	 * ist einiges mehr zu tun ...
+	 * <b>WARNUNG:</b> Es reicht nicht aus, einfach diese Zahl zum Beispiel fuer
+	 * 16x16 Sudokus hochzusetzen. Da ist einiges mehr zu tun ...
 	 */
 	private final int BLOCK_SIZE = 3;
-	
+
 	/**
 	 * Anzahl der Spalten/Zeilen
 	 */
 	private final int ROW_SIZE = BLOCK_SIZE * BLOCK_SIZE;
-	
+
 	/**
-	 * Zweidimensionales Array, welches das 
-	 * initiale (und das geloeste) Sudoku speichert.<br>
+	 * Zweidimensionales Array, welches das initiale (und das geloeste) Sudoku
+	 * speichert.<br>
 	 * <br>
 	 * Moegliche Eintraege:
 	 * <ul>
-	 * 	<li>Zahlen 1..9</li> 
-	 * 	<li>0 fuer unbekannter Wert</li>
+	 * <li>Zahlen 1..9</li>
+	 * <li>0 fuer unbekannter Wert</li>
 	 * </ul>
 	 */
 	private int[][] spielFeld;
-	
+
 	// Achtung: Arrays enthalten spaeter Loesung!
 	private int[][][] testSpielFelder = {
 								 /* |---------|---------|---------| */
@@ -82,134 +81,165 @@ public class SudokuChecker{
 		 						 /* |---------|---------|---------| */	
 	
 	};
-	
+
 	/** Testmethode */
 	public void testSudokuChecker() {
-		for(int[][] testFeld : this.testSpielFelder) {
+		for (int[][] testFeld : this.testSpielFelder) {
 			this.spielFeld = testFeld;
 
 			// Korrekte Spielfelder pruefen
 			this.print();
 			System.out.println("Falscher Alarm?");
 			this.validiereSpielfeld();
-			
+
 			// Fehler einbauen
-			this.spielFeld[8][8]  = -1; 
+			this.spielFeld[8][8] = -1;
 			this.print();
 			System.out.println("Falscher Wert auf [8][8] ...");
 			this.validiereSpielfeld();
-			
-			this.spielFeld[8][8]  = 8; 
+
+			this.spielFeld[8][8] = 8;
 			this.print();
 			System.out.println("Womoeglich doppelter Wert auf [8][8] ...");
 			this.validiereSpielfeld();
 		}
 	}
-	
-	
+
 	/**
-	 * Pruefen, ob ein gegebener Wert im erlaubten Bereich 
-	 * 1 ... ROW_SIZE ist.
+	 * Pruefen, ob ein gegebener Wert im erlaubten Bereich 1 ... ROW_SIZE ist.
 	 * 
 	 * @param wert Wert, in 1 ... ROW_SIZE sein soll
 	 * @return true, falls Wert in Ordnung
 	 */
 	private boolean isValueOk(int wert) {
-		return true; // TODO
+		if (wert > 0 && wert <= ROW_SIZE) {
+			return true;
+		}
+		return false;
 	}
-	
-	
+
 	/**
-	 * Pruefen, ob ein gegebener Wert an gegebener Position in einer Zeile erlaubt ist.
+	 * Pruefen, ob ein gegebener Wert an gegebener Position in einer Zeile erlaubt
+	 * ist.
 	 * 
 	 * @param zeile Zeile, in der der Wert geprueft wird
-	 * @param wert Wert, der noch nicht in der Zeile vorhanden sein darf
+	 * @param wert  Wert, der noch nicht in der Zeile vorhanden sein darf
 	 * @return true, falls Wert noch nicht vorhanden.
 	 */
 	private boolean isZeileOk(int zeile, int wert) {
-		// TODO		
+		/*
+		 * Prüfen ob gegebener Wert bereits in der Zeile vorhanden ist. Wenn dem so ist,
+		 * dann kann dieser Wert nicht nochmal hinzugefügt werden. Folglich return
+		 * false.
+		 */
+		for (int zeilenWert : spielFeld[zeile]) {
+			if (zeilenWert == wert) {
+				return false;
+			}
+		}
 		return true;
 	}
 
-	
 	/**
 	 * Pruefen, ob ein gegebener Wert in einer Spalte erlaubt ist.
 	 * 
 	 * @param spalte Spalte, in der der Wert geprueft wird
-	 * @param wert Wert, der noch nicht in der Spalte vorhanden sein darf
+	 * @param wert   Wert, der noch nicht in der Spalte vorhanden sein darf
 	 * @return true, falls Wert noch nicht vorhanden.
 	 */
 	private boolean isSpalteOk(int spalte, int wert) {
-		// TODO
+		/*
+		 * Spalten sind in der zweiten Dimension des Arrays spielFeld gespeichert.
+		 * Folglich muss über jede 1. Dimension iteriert werden um die Spalte zu
+		 * erreichen.
+		 */
+		// Da Spielfeld quadratisch, ist ROW_SIZE genauso groß wie die nicht definierte
+		// Spaltengröße
+		for (int zeile = 0; zeile < ROW_SIZE; zeile++) {
+			int spaltenWert = spielFeld[zeile][spalte];
+			if (spaltenWert == wert) {
+				return false;
+			}
+		}
 		return true;
 	}
-	
+
 	/**
 	 * Pruefen, ob ein gegebener Wert in einem Block erlaubt ist.
 	 * 
-	 * @param zeile Zeile, in der der Wert geprueft wird
+	 * @param zeile  Zeile, in der der Wert geprueft wird
 	 * @param spalte Spalte, in der der Wert geprueft wird
-	 * @param wert Wert, der noch nicht in dem Block vorhanden sein darf
+	 * @param wert   Wert, der noch nicht in dem Block vorhanden sein darf
 	 * @return true, falls Wert noch nicht vorhanden.
 	 */
 	private boolean isBlockOk(int zeile, int spalte, int wert) {
-		// TODO
+		int zeilenBeginn = zeile / BLOCK_SIZE * BLOCK_SIZE;
+		int spaltenBeginn = spalte / BLOCK_SIZE * BLOCK_SIZE;
+		for (zeile = zeilenBeginn; zeile < zeilenBeginn + BLOCK_SIZE - 1; zeile++) {
+			for (spalte = spaltenBeginn; spalte < spaltenBeginn + BLOCK_SIZE - 1; spalte++) {
+				if (spielFeld[zeile][spalte] == wert) {
+					return false;
+				}
+			}
+		}
 		return true;
 	}
-	
-	
+
 	/**
-	 * Ein Sudoku pruefen, ob keine Werte doppelt in Zeilen, Spalten oder Bloecken auftauchen.
-	 * Falls doch, einfach ausgeben, wo das der Fall ist.
+	 * Ein Sudoku pruefen, ob keine Werte doppelt in Zeilen, Spalten oder Bloecken
+	 * auftauchen. Falls doch, einfach ausgeben, wo das der Fall ist.
 	 */
-	public void validiereSpielfeld() {	
+	public void validiereSpielfeld() {
 		for (int iZeile = 0; iZeile < ROW_SIZE; iZeile++) {
 			for (int iSpalte = 0; iSpalte < ROW_SIZE; iSpalte++) {
-				
+
 				int wert = spielFeld[iZeile][iSpalte];
-				
+
 				if (wert != 0) { // Feld besetzt
 
 					spielFeld[iZeile][iSpalte] = 0; // Damit eigentlicher Wert nicht wie Doppelung aussieht
 
 					if (!isValueOk(wert)) {
-						System.out.format("Ungueltiger Wert %d in Zeile %d, Spalte %d! \n",      wert, iZeile + 1, iSpalte + 1);
+						System.out.format("Ungueltiger Wert %d in Zeile %d, Spalte %d! \n", wert, iZeile + 1,
+								iSpalte + 1);
 					}
 					if (!isZeileOk(iZeile, wert)) {
-						System.out.format("Doppelter Zeilenwert %d in Zeile %d, Spalte %d! \n",  wert, iZeile + 1, iSpalte + 1);
+						System.out.format("Doppelter Zeilenwert %d in Zeile %d, Spalte %d! \n", wert, iZeile + 1,
+								iSpalte + 1);
 					}
 					if (!isSpalteOk(iSpalte, wert)) {
-						System.out.format("Doppelter Spaltenwert %d in Zeile %d, Spalte %d! \n", wert, iZeile + 1, iSpalte + 1);
+						System.out.format("Doppelter Spaltenwert %d in Zeile %d, Spalte %d! \n", wert, iZeile + 1,
+								iSpalte + 1);
 					}
 					if (!isBlockOk(iZeile, iSpalte, wert)) {
-						System.out.format("Doppelter Blockwert %d in Zeile %d, Spalte %d! \n",   wert, iZeile + 1, iSpalte + 1);
+						System.out.format("Doppelter Blockwert %d in Zeile %d, Spalte %d! \n", wert, iZeile + 1,
+								iSpalte + 1);
 					}
 
 					spielFeld[iZeile][iSpalte] = wert; // Wert wieder herstellen
 				} // Feld besetzt
 			}
-		}	
+		}
 	}
 
-	
-	/** 
+	/**
 	 * Ein Sudoku ausgeben.
 	 */
 	public void print() {
 		final String horizBorder = " ┼────────┼────────┼────────┼";
-		
+
 		System.out.println();
-		
+
 		for (int iZeile = 0; iZeile < ROW_SIZE; iZeile++) {
 			if (0 == iZeile % 3) {
-				System.out.println(horizBorder); 
+				System.out.println(horizBorder);
 			}
-			
+
 			for (int iSpalte = 0; iSpalte < ROW_SIZE; iSpalte++) {
-				if (0 == iSpalte % 3)  {
+				if (0 == iSpalte % 3) {
 					System.out.print(" │ ");
 				}
-				
+
 				int wert = spielFeld[iZeile][iSpalte];
 				if (wert == 0) {
 					System.out.print("_ ");
@@ -222,9 +252,9 @@ public class SudokuChecker{
 		}
 		System.out.println(horizBorder);
 	}
-	
+
 	public static void main(String[] args) {
 		new SudokuChecker().testSudokuChecker();
 	}
-	
+
 }

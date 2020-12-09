@@ -12,6 +12,7 @@ public class Raumzuordnung {
 		if (zuordnungsGrund != null && zuordnungsGrund.trim().length() >= 3) {
 			this.zuordnungsGrund = zuordnungsGrund;
 		} else {
+			this.zuordnungsGrund = "Illegaler Zuordnungsgrund";
 			// ESKALATION, aber wie nur?
 			System.err.println("Ungültiger Grund für die Zuordnung");
 		}
