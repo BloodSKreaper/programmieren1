@@ -175,8 +175,8 @@ public class SudokuChecker {
 	private boolean isBlockOk(int zeile, int spalte, int wert) {
 		int zeilenBeginn = zeile / BLOCK_SIZE * BLOCK_SIZE;
 		int spaltenBeginn = spalte / BLOCK_SIZE * BLOCK_SIZE;
-		for (zeile = zeilenBeginn; zeile < zeilenBeginn + BLOCK_SIZE - 1; zeile++) {
-			for (spalte = spaltenBeginn; spalte < spaltenBeginn + BLOCK_SIZE - 1; spalte++) {
+		for (zeile = zeilenBeginn; zeile < zeilenBeginn + BLOCK_SIZE; zeile++) {
+			for (spalte = spaltenBeginn; spalte < spaltenBeginn + BLOCK_SIZE; spalte++) {
 				if (spielFeld[zeile][spalte] == wert) {
 					return false;
 				}
