@@ -21,7 +21,7 @@ public class SimplifyOrTransform {
 
 		a = b++ - (b += 2) - (b = 0); // Substraktion mit 0 überflüssig -> kann weggelassen werden
 		// Vereinfacht:
-		a = b++ - (b += 2);
+		a = b++ - (b = 2);
 
 		// Ändern Sie bitte ab auf, wo passend, Dekrement/Inkement-Opratoren
 		// oder kombinierte Zuweisungsoperatoren (jeweils ohne die Ausgabe zu ändern
@@ -75,7 +75,6 @@ public class SimplifyOrTransform {
 			a = a + 2;
 		}*/
 		for (a=3; a < 100; a += 2) {
-			b = 2;
 			for (b=2 ; b*b < a && a %b !=0; b++) {
 			}
 			if(b*b > a) {
