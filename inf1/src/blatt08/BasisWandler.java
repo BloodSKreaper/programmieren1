@@ -49,7 +49,7 @@ public class BasisWandler {
 		if (n <= 0L) {// Rekursionsbasis
 			ret = ""; // Führende Nullen werden nicht angegeben
 		} else {
-			ret = inBasisKwandeln(n / k, (int) k) + intNachZiffer((int) (n % k));
+			ret = inBasisKwandeln(n / k, k) + intNachZiffer((int) (n % k));
 		}
 		return ret;
 	}

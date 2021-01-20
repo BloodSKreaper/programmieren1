@@ -53,6 +53,7 @@ public class RecursionUebung {
 
 	// Aufgabe 8.8
 	static void xxx(long n) {//Gibt die Zahlen n, n-1, n-2, n-3, ..., 1 aus
+		System.out.println();
 		if (n > 0L) {
 			System.out.println(n);
 			xxx(n - 1);
