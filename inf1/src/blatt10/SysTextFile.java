@@ -3,9 +3,9 @@ package blatt10;
 public class SysTextFile extends SysObjectBase {
 	private String type, text;
 
-	
 	/**
 	 * Konstruktor einer Textdatei
+	 * 
 	 * @param name Bezeichner der Datei
 	 * @param type Abkürzung für Datentyp der Datei. Beispielsweise "yml"
 	 */
@@ -20,12 +20,12 @@ public class SysTextFile extends SysObjectBase {
 	@Override
 	public String toString() {
 		return super.toString() + String.format(", Type=%s, Length=%d", type, text == null ? 0 : text.length());
-
 	}
 
 	// Setter
 	/**
 	 * Setzt den Inhalt der Textdatei
+	 * 
 	 * @param text
 	 */
 	public void setText(String text) {
@@ -35,6 +35,7 @@ public class SysTextFile extends SysObjectBase {
 	// Getter
 	/**
 	 * Gibt den Inhalt der Textdatei zurück
+	 * 
 	 * @return Inhalt
 	 */
 	public String getText() {

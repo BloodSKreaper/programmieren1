@@ -2,7 +2,7 @@ package blatt10;
 
 public abstract class SysObjectBase {
 	private String name, owner;
-
+	
 	/**
 	 * Konstruktor zur Erzeugung eines SysObjectBase-Objects mit Name.
 	 * 
